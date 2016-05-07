@@ -35,13 +35,35 @@ namespace CS2312 {
             typedef std::forward_iterator_tag iterator_category;
             typedef size_type difference_type;
 
-            iterator(pointer ptr);
-            self_type operator++();
-            self_type operator++(int junk);
-            reference operator*();
-            pointer operator->();
-            bool operator==(const self_type& rhs) const;
-            bool operator!=(const self_type& rhs) const;
+            iterator(pointer ptr){
+                __ptr = ptr;
+            }
+            self_type operator++(){
+                __ptr++;        //we want to increment ptr and return the current obj
+            }
+            self_type operator++(int junk){
+                self_type last(__ptr);//initialize a ne wobject with ptr value
+                __ptr++;
+                return last;            //we return the previous pointer
+            }
+            reference operator*(){
+                assert(__ptr!= nullptr);
+                return __ptr;
+            }
+            pointer operator->(){
+                assert(__ptr != nullptr);
+                return __ptr;
+            }
+            bool operator==(const self_type& rhs) const{
+                if(__ptr == rhs.__ptr)
+                    return true;
+                else return false;
+            }
+            bool operator!=(const self_type& rhs) const{
+                if(__ptr != rhs.__ptr)      //todo check if this works
+                    return true;
+                else return false;
+            }
 
         private:
 
@@ -60,13 +82,33 @@ namespace CS2312 {
             typedef std::forward_iterator_tag iterator_category;
             typedef size_type difference_type;
 
-            const_iterator(pointer ptr);
-            self_type operator++();
-            self_type operator++(int junk);
-            const value_type& operator*() const;
-            const value_type* operator->() const;
-            bool operator==(const self_type& rhs) const;
-            bool operator!=(const self_type& rhs) const;
+            const_iterator(pointer ptr){
+                __ptr = ptr;
+            }
+            self_type operator++(){
+                __ptr++;
+                return *this;
+            }
+            self_type operator++(int junk){
+                __ptr++;
+                return *this;
+            }
+            const value_type& operator*() const{
+                return *__ptr;
+            }
+            const value_type* operator->() const{
+                return __ptr;
+            }
+            bool operator==(const self_type& rhs) const{
+                if(__ptr == rhs.__ptr)
+                    return true;
+                else return false;
+            }
+            bool operator!=(const self_type& rhs) const{
+                if(__ptr != rhs.__ptr)
+                    return true;
+                else return false;
+            }
 
         private:
 
@@ -75,25 +117,34 @@ namespace CS2312 {
         };
 
 
-        fixed_array(size_type size);
+        fixed_array(size_type size){
+            __size = size;
+            __data = new T[__size];
+        }
 
-        fixed_array(std::initializer_list<T> list);
+        fixed_array(std::initializer_list<T> list){
+            __data = new T[list.size()];
+            int counter = 0;
+            for(auto it = list.begin(); it != list.end(); it++, counter++) {      //will traverse the list and will increment counter variable
+                __data[counter] = *it;
+            }
+        }
 
-        ~fixed_array();
+        ~fixed_array(){}
 
-        size_type size() const;
+        size_type size() const{}
 
-        T& operator[](size_type index);
+        T& operator[](size_type index){}
 
-        const T& operator[](size_type index) const;
+        const T& operator[](size_type index) const{}
 
-        iterator begin();
+        iterator begin(){}
 
-        iterator end();
+        iterator end(){}
 
-        const_iterator begin() const;
+        const_iterator begin() const{}
 
-        const_iterator end() const;
+        const_iterator end() const{}
 
     private:
 

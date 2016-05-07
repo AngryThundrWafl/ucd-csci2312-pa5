@@ -16,13 +16,14 @@ namespace CS2312{
         bool operator()(const T &x, const T &y) {
             if (x < y)
                 return true;
-            else if (x > y)
+            else
                 return false;
         }
     };
     //Class Less that will use to std:: string arguments///////
-    template<>;             //need to call template again for it to work
+    template<>             //need to call template again for it to work
     class less<std::string>{//create a new class called less that will handle a string argument
+    public:
         less(){}
         ~less(){}
         bool operator()(const std::string &x, const std::string &y){
@@ -34,8 +35,9 @@ namespace CS2312{
         }
     };
     //Class Less that will have char as arguments////////
-    template<>;             //calls the template again
+    template<>            //calls the template again
     class less<char*>{//this less class will use a char as an argument
+    public:
         less(){}
         ~less(){}
         bool operator()(const char *x, const char *y){
