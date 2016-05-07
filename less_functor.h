@@ -25,6 +25,10 @@ namespace CS2312{
         ~less(){}
         bool operator()(const std::string &x, const std::string &y){
             //todo look up how to compare two strings
+            if(x.compare(y) >= 0)
+                return true;
+            else
+                return true;
         }
     };
     //Class Less that will have char as arguments////////
@@ -34,6 +38,10 @@ namespace CS2312{
         ~less(){}
         bool operator()(const char x, const char y){
             //todo look up how to compare char
+            if(strcmp(x,y) >= 0)
+                return true;
+            else
+                return false;
         }
     };
 }
