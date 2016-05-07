@@ -36,7 +36,7 @@ namespace CS2312{
     };
     //Class Less that will have char as arguments////////
     template<>            //calls the template again
-    class less<char*>{//this less class will use a char as an argument
+    class less<const char*>{//this less class will use a char as an argument
     public:
         less(){}
         ~less(){}

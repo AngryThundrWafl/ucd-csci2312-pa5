@@ -48,7 +48,7 @@ namespace CS2312 {
             }
             reference operator*(){
                 assert(__ptr!= nullptr);
-                return __ptr;
+                return *__ptr;
             }
             pointer operator->(){
                 assert(__ptr != nullptr);
@@ -57,12 +57,14 @@ namespace CS2312 {
             bool operator==(const self_type& rhs) const{
                 if(__ptr == rhs.__ptr)
                     return true;
-                else return false;
+                else
+                    return false;
             }
             bool operator!=(const self_type& rhs) const{
-                if(__ptr != rhs.__ptr)      //todo check if this works
+                if(__ptr == rhs.__ptr)      //todo check if this works
+                    return false;
+                else
                     return true;
-                else return false;
             }
 
         private:
@@ -130,21 +132,43 @@ namespace CS2312 {
             }
         }
 
-        ~fixed_array(){}
+        ~fixed_array(){
+            delete __data;
+        }
 
-        size_type size() const{}
+        size_type size() const{
+            //todo
+        }
 
-        T& operator[](size_type index){}
+        T& operator[](size_type index){
+            return __data[index];
+        }
 
-        const T& operator[](size_type index) const{}
+        const T& operator[](size_type index) const{
+            return __data[index];
+        }
 
-        iterator begin(){}
+        iterator begin(){
+            iterator BEGIN(__data);
+            return BEGIN;
+        }
 
-        iterator end(){}
+        iterator end(){
+            iterator END(__data);
+            END = &__data[__size];
+            return END;
+        }
 
-        const_iterator begin() const{}
+        const_iterator begin() const{
+            const_iterator BEGIN(__data);
+            return BEGIN;
+        }
 
-        const_iterator end() const{}
+        const_iterator end() const{
+            const_iterator END(__data);
+            END = &__data[__size];
+            return END;
+        }
 
     private:
 
