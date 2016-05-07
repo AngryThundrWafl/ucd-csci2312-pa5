@@ -5,6 +5,8 @@
 #ifndef UCD_CSCI2312_PA5_LESS_FUNCTOR_H
 #define UCD_CSCI2312_PA5_LESS_FUNCTOR_H
 #include <string>
+#include <string.h>
+
 namespace CS2312{
     template <typename T>   //declares a generic value type of T
     class less{             //classs called less that will be used to compare a lhs and rhs argument
@@ -26,22 +28,22 @@ namespace CS2312{
         bool operator()(const std::string &x, const std::string &y){
             //todo look up how to compare two strings
             if(x.compare(y) >= 0)
-                return true;
+                return false;
             else
                 return true;
         }
     };
     //Class Less that will have char as arguments////////
     template<>;             //calls the template again
-    class less<char>{//this less class will use a char as an argument
+    class less<char*>{//this less class will use a char as an argument
         less(){}
         ~less(){}
-        bool operator()(const char x, const char y){
+        bool operator()(const char *x, const char *y){
             //todo look up how to compare char
             if(strcmp(x,y) >= 0)
-                return true;
-            else
                 return false;
+            else
+                return true;
         }
     };
 }
