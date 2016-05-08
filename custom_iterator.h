@@ -40,31 +40,24 @@ namespace CS2312 {
             }
             self_type operator++(){
                 __ptr++;        //we want to increment ptr and return the current obj
+                return *this;
             }
             self_type operator++(int junk){
-                self_type last(__ptr);//initialize a ne wobject with ptr value
+                self_type last = *this;//initialize a ne wobject with ptr value
                 __ptr++;
                 return last;            //we return the previous pointer
             }
             reference operator*(){
-                assert(__ptr!= nullptr);
                 return *__ptr;
             }
             pointer operator->(){
-                assert(__ptr != nullptr);
                 return __ptr;
             }
             bool operator==(const self_type& rhs) const{
-                if(__ptr == rhs.__ptr)
-                    return true;
-                else
-                    return false;
+                return __ptr == rhs.__ptr;
             }
             bool operator!=(const self_type& rhs) const{
-                if(__ptr == rhs.__ptr)      //todo check if this works
-                    return false;
-                else
-                    return true;
+                return __ptr != rhs.__ptr;
             }
 
         private:
@@ -92,8 +85,9 @@ namespace CS2312 {
                 return *this;
             }
             self_type operator++(int junk){
+                self_type last = *this;
                 __ptr++;
-                return *this;
+                return last;
             }
             const value_type& operator*() const{
                 return *__ptr;
@@ -102,14 +96,10 @@ namespace CS2312 {
                 return __ptr;
             }
             bool operator==(const self_type& rhs) const{
-                if(__ptr == rhs.__ptr)
-                    return true;
-                else return false;
+                return __ptr == rhs.__ptr;
             }
             bool operator!=(const self_type& rhs) const{
-                if(__ptr != rhs.__ptr)
-                    return true;
-                else return false;
+                return __ptr != rhs.__ptr;
             }
 
         private:
@@ -126,6 +116,7 @@ namespace CS2312 {
 
         fixed_array(std::initializer_list<T> list){
             __data = new T[list.size()];
+            __size = list.size();
             int counter = 0;
             for(auto it = list.begin(); it != list.end(); it++, counter++) {      //will traverse the list and will increment counter variable
                 __data[counter] = *it;
@@ -133,41 +124,37 @@ namespace CS2312 {
         }
 
         ~fixed_array(){
-            delete __data;
+            delete [] __data;
         }
 
         size_type size() const{
-            //todo
+            return __size;
         }
 
         T& operator[](size_type index){
+            assert(index < __size);
             return __data[index];
         }
 
         const T& operator[](size_type index) const{
+            assert(index < __size);
             return __data[index];
         }
 
         iterator begin(){
-            iterator BEGIN(__data);
-            return BEGIN;
+            return iterator(__data);
         }
 
         iterator end(){
-            iterator END(__data);
-            END = &__data[__size];
-            return END;
+            return iterator(__data+__size);
         }
 
         const_iterator begin() const{
-            const_iterator BEGIN(__data);
-            return BEGIN;
+            return const_iterator(__data);
         }
 
         const_iterator end() const{
-            const_iterator END(__data);
-            END = &__data[__size];
-            return END;
+            return const_iterator(__data + __size);
         }
 
     private:

@@ -5,7 +5,7 @@
 #ifndef UCD_CSCI2312_PA5_LESS_FUNCTOR_H
 #define UCD_CSCI2312_PA5_LESS_FUNCTOR_H
 #include <string>
-#include <string.h>
+#include <cstring>
 
 namespace CS2312{
     template <typename T>   //declares a generic value type of T
@@ -14,10 +14,7 @@ namespace CS2312{
         less(){}            //default constructor
         ~less(){}           //destructor
         bool operator()(const T &x, const T &y) {
-            if (x < y)
-                return true;
-            else
-                return false;
+           return x < y;
         }
     };
     //Class Less that will use to std:: string arguments///////
@@ -27,11 +24,7 @@ namespace CS2312{
         less(){}
         ~less(){}
         bool operator()(const std::string &x, const std::string &y){
-            //todo look up how to compare two strings
-            if(x.compare(y) >= 0)
-                return false;
-            else
-                return true;
+            return x < y;
         }
     };
     //Class Less that will have char as arguments////////
@@ -42,10 +35,7 @@ namespace CS2312{
         ~less(){}
         bool operator()(const char *x, const char *y){
             //todo look up how to compare char
-            if(strcmp(x,y) >= 0)
-                return false;
-            else
-                return true;
+            return strcmp(x, y) < 0;
         }
     };
 }
